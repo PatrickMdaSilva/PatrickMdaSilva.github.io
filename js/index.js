@@ -9,7 +9,7 @@ if (hourNow > 17){
 }else if (hourNow > 0){
     greeting = 'Bom Dia!';
 }else {
-    greeting = 'seja bem-vindo!';
+    greeting = 'Seja bem-vindo!';
 }
 var elgreeting = document.getElementById('greeting');
 elgreeting.textContent = greeting;
