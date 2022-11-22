@@ -35,6 +35,19 @@
     border-right: 5px solid var(--bio-border-color);
 }
 
+@keyframes backgroundTransition {
+    0% {
+        background-position: 0% 80%;
+    }
+    50% {
+        background-position: 90% 100%;
+    }
+    100%{
+        background-position: 0% 90%;
+    }
+    
+}
+
 #about-container {
     flex: 1 1 80%;
     min-height: 100vh;
