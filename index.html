@@ -5,6 +5,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="css/style.css" rel="stylesheet">
+        <script src="js/scripts.js">
+            
+        </script>
     </head>
     <body>
         <div class="banner" id="home">
@@ -27,51 +30,123 @@
             </div>
             <div class="batle">
                 <div class="container-1">
-                    <div class="pokeball"></div>
-                    <div class="pokeball"></div>
-                    <div class="pokeball"></div>
+                    <div class="pokeball">
+                        <div class="pokemon-slot"></div>
+                    </div>
+                    <div class="pokeball">
+                        <div class="pokemon-slot"></div>
+                    </div>
+                    <div class="pokeball">
+                        <div class="pokemon-slot"></div>
+                    </div>
                 </div>
                 <div class="container-2">
-                    <div class="pokeball pokeball-2"></div>
-                    <div class="pokeball pokeball-2"></div>
-                    <div class="pokeball pokeball-2"></div>
+                    <div class="pokeball pokeball-2">
+                        <div class="pokemon-slot"></div>
+                    </div>
+                    <div class="pokeball pokeball-2">
+                        <div class="pokemon-slot"></div>
+                    </div>
+                    <div class="pokeball pokeball-2">
+                        <div class="pokemon-slot"></div>
+                    </div>
                 </div>
             </div>
             <audio id="pokeSound">
                 <source src="pokeball.mp3" type="audio/mpeg">
             </audio>
         </div>
+        <div id="time-1"></div>
+        <div id="time-2"></div>
+            
+        <!--<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/back/41.gif" alt="GIF espelhado" style="transform: scaleX(-1); width: 200px; z-index: 10;">-->
+                </div>
         <audio autoplay loop controls id="meuAudio">
             <source src="Pokemon.mp3" type="audio/mpeg">
             Seu navegador não suporta o elemento de áudio.
         </audio>
 
-        <script>
-        // Tenta reproduzir com som após a interação do usuário, 
-        // caso o navegador bloqueie o autoplay sonoro
-        window.addEventListener('click', function() {
-            var audio = document.getElementById('meuAudio');
-            audio.muted = false;
-            audio.play();
-        }, { once: true }); // Executa apenas uma vez
+    <script>
 
-        const pokeballs = document.querySelectorAll(".pokeball");
+        // libera música após primeira interação do usuário
+        window.addEventListener('click', function () {
+            const audio = document.getElementById('meuAudio');
+
+            if (audio) {
+                audio.muted = false;
+                audio.play();
+            }
+
+        }, { once: true });
+
+
+        // pega pokebolas vermelhas + azuis
+        const pokeballs = document.querySelectorAll(".pokeball, .pokeball-2");
+
         const sound = document.getElementById("pokeSound");
 
-        pokeballs.forEach(ball => {
+
+        pokeballs.forEach((ball, index) => {
+
             ball.addEventListener("click", function () {
 
-                // anima somente a pokébola clicada
+                // evita erro se ainda não carregou
+                if (!grupo_1.length || !grupo_2.length) {
+                    console.log("Pokémons ainda carregando...");
+                    return;
+                }
+
+                // animação
                 this.classList.remove("rotate");
+
                 void this.offsetWidth;
+
                 this.classList.add("rotate");
 
-                // reinicia e toca o som
-                sound.currentTime = 0;
-                sound.play();
+                // esconde a pokebola depois da animação
+                setTimeout(() => {
+                    this.classList.add("opened");
+                }, 1500);
+
+
+                // toca som
+                if (sound) {
+                    sound.currentTime = 0;
+                    sound.play();
+                }
+
+                // escolhe o pokemon correto
+                let pokemon;
+
+                if (index < 3) {
+                    pokemon = grupo_1[index];
+                } else {
+                    pokemon = grupo_2[index - 3];
+                }
+
+                if (!pokemon) return;
+
+
+                // fallback caso sprite animada não exista
+                const sprite =
+                    pokemon.sprites?.versions?.["generation-v"]?.["black-white"]?.animated?.front_default
+                    ||
+                    pokemon.sprites?.front_default;
+
+
+                // renderiza pokemon
+                const slot = this.querySelector(".pokemon-slot");
+
+                if (slot) {
+                    slot.innerHTML = `
+                        <img src="${sprite}" alt="${pokemon.name}">
+                    `;
+                }
 
             });
+
         });
-        </script>
+
+    </script>
     </body>
 </html>
