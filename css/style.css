@@ -88,19 +88,13 @@
     display: flex;
     justify-content: space-around;
 }
-.container-1 .container-2 {
-    width: 900px;
-    height: 400px;
-}
 
-.container-1 {
+.container-1, .container-2 {
+    padding: 30px;
     z-index: 2;
-    
-}
-
-.container-2 {
-    z-index: 2;
-    
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 }
 
 #meuAudio {
@@ -189,7 +183,96 @@
 
 @keyframes rotateBall {
 
-   0%   { transform: rotate(0deg); }
+    0%   { transform: rotate(0deg); }
+
     40%  { transform: rotate(720deg); }
-    100% { transform: scaleX(-1); }
+
+    100% { 
+        transform: scaleX(-1);
+        background: transparent;
+        border-color: transparent;
+        box-shadow: none; 
+    }
+}
+
+.pokemon-slot {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 250px;
+    height: 250px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1;
+    pointer-events: none;
+}
+
+.pokemon-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 1;
+}
+
+/* espelha player 2 */
+.container-2 .pokemon-slot img {
+    transform: scaleX(-1);
+}
+
+.pokeball.opened,
+.pokeball-2.opened {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+@media screen and (max-width: 932px) {
+
+    .content h1{
+        font-size: 2em;
+    }
+
+    .player p{
+        font-size: 1.2em;
+    }
+
+    .player img{
+        width: 80px;
+        height: 80px;
+        margin: 0 10px;
+    }
+
+    .botao button{
+        font-size: 1em;
+        padding: 8px 12px;
+    }
+
+    .pokeball,
+    .pokeball-2{
+        width: 100px;
+        height: 100px;
+    }
+
+    .pokemon-slot{
+        width: 120px;
+        height: 120px;
+    }
+
+    .container-1,
+    .container-2{
+        gap: 5px;
+        padding: 10px;
+    }
+
+    .batle{
+        margin-top: 20px;
+    }
+
 }
