@@ -14,7 +14,7 @@
     width: 100%;
     height: 100vh;
     position: relative; /* importante */
-    background: fff;
+    background: grey;
 }
 
 .banner img {
@@ -24,7 +24,7 @@
     height: 100vh;
     width: 100%;
     object-fit: cover;
-    opacity: 0.3;
+    opacity: 0.1;
     z-index: 1; /* imagem atrás */
 }
 
@@ -51,15 +51,15 @@
 
 .player p{
     position: relative;
-    font-size: 2em;
+    font-size: 1.8em;
     z-index: 1;
 }
 
 .player img{
     margin: 0 50px;
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     opacity: 1;
 }
 
@@ -67,7 +67,7 @@
     position: relative;
      z-index: 1;
      font-size: 1.8em;
-    padding:0px 15px 15px 25px;
+    padding:0px 12px 12px 20px;
     border: 6px solid black;
     border-radius: 10px;
     background-color: rgb(237, 179, 71);
@@ -78,7 +78,7 @@
 .botao  button:hover{
     
     cursor: pointer;
-    font-size: 2.2em;
+    font-size: 2em;
     background-color: orange;
     transition: 0.5s;
     
@@ -103,12 +103,12 @@
 
 .pokeball, .pokeball-2 {
     z-index: 2;
-    width: 220px;
-    height: 220px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     position: relative;
     border: 6px solid #111;
-    margin: 12px 0;
+    margin: 12px 30px;
     transition: 0.5s;
     
     /* metade vermelha e metade branca */
@@ -144,8 +144,8 @@
 .pokeball::before, .pokeball-2::before {
     content: "";
     position: absolute;
-    width: 55px;
-    height: 55px;
+    width: 30px;
+    height: 30px;
     background: #111;
     border-radius: 50%;
     top: 50%;
@@ -157,8 +157,8 @@
 .pokeball::after, .pokeball-2::after {
     content: "";
     position: absolute;
-    width: 28px;
-    height: 28px;
+    width: 18px;
+    height: 18px;
     background: white;
     border: 5px solid #111;
     border-radius: 50%;
@@ -168,8 +168,8 @@
 }
 
 .pokeball.rotate {
-    
     animation: rotateBall 2s ease-in-out forwards;
+    
 }
 
 .pokeball:hover {
@@ -185,10 +185,13 @@
 
     0%   { transform: rotate(0deg); }
 
-    40%  { transform: rotate(720deg); }
+    40% { 
+        transform: rotate(720deg);
+        box-shadow: transparent;  
+    }
 
     100% { 
-        transform: scaleX(-1);
+        
         background: transparent;
         border-color: transparent;
         box-shadow: none; 
@@ -203,8 +206,8 @@
 
     transform: translate(-50%, -50%);
 
-    width: 250px;
-    height: 250px;
+    width: 220px;
+    height: 220px;
 
     display: flex;
     justify-content: center;
@@ -215,8 +218,8 @@
 }
 
 .pokemon-slot img {
-    width: 100%;
-    height: 100%;
+    width: 70%;
+    height: 70%;
     object-fit: contain;
     opacity: 1;
 }
@@ -233,31 +236,76 @@
     box-shadow: none !important;
 }
 
+.pokemon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pokemon-card img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.pokemon-card p {
+    position: relative;
+    margin-top: 228px;
+
+    font-family: 'pokemon';
+    font-size: 1.4em;
+
+    color: rgb(253, 232, 4);
+
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(28, 28, 251);
+
+    text-shadow: -2px 2px black;
+
+    text-transform: capitalize;
+
+    z-index: 10;
+}
+
 @media screen and (max-width: 932px) {
 
     .content h1{
         font-size: 2em;
     }
 
+    .content h1, .player p, button{
+    text-align: center;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(28, 28, 251);
+    font-size: 2em;
+    color: rgb(253, 232, 4);
+    font-family: 'pokemon';
+    letter-spacing: 5px;
+    text-shadow: -2px 2px black;
+    }
+
     .player p{
-        font-size: 1.2em;
+        font-size: 1em;
     }
 
     .player img{
-        width: 80px;
-        height: 80px;
+        width: 60px;
+        height: 60px;
         margin: 0 10px;
     }
 
     .botao button{
         font-size: 1em;
-        padding: 8px 12px;
+        border: 3px solid black;
+        padding:0px 6px 10px 15px;
     }
 
     .pokeball,
     .pokeball-2{
         width: 100px;
         height: 100px;
+        margin: 6px 10px;
     }
 
     .pokemon-slot{
