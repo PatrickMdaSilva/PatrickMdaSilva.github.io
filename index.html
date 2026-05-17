@@ -21,7 +21,7 @@
                     <img src="img/player1.svg" alt="pokemon">
                 </div>
                 <div class="botao">
-                    <button type="submit" id="reiniciar">Reiniciar</button>
+                    <button onclick="location.reload()" type="submit" id="reiniciar">Reiniciar</button>
                 </div>
                 <div class="player">
                     <p>Player2</p>
@@ -131,7 +131,12 @@
                 const sprite =
                     pokemon.sprites?.versions?.["generation-v"]?.["black-white"]?.animated?.front_default
                     ||
+                    pokemon.sprites?.other?.dream_world?.front_default
+                    ||
+                    pokemon.sprites?.other?.home?.front_default
+                    ||
                     pokemon.sprites?.front_default;
+                    
 
 
                 // renderiza pokemon
@@ -139,7 +144,10 @@
 
                 if (slot) {
                     slot.innerHTML = `
-                        <img src="${sprite}" alt="${pokemon.name}">
+                        <div class="pokemon-card">
+                            <img src="${sprite}" alt="${pokemon.name}">
+                            <p>${pokemon.name}</p>
+                        </div>
                     `;
                 }
 
