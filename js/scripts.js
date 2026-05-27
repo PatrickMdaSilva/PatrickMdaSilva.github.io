@@ -15,7 +15,7 @@ async function selecionaPokemons() {
         const dados = await resposta.json();
 
         // retorna 3 pokemons aleatórios
-        console.log(escolhePokemonAleatorio(dados, 3))
+        
         return escolhePokemonAleatorio(dados, 3);
 
     } catch (error) {
