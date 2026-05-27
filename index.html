@@ -85,73 +85,101 @@
 
         const sound = document.getElementById("pokeSound");
 
-
+        console.log(pokeballs)
         pokeballs.forEach((ball, index) => {
-
+            
             ball.addEventListener("click", function () {
 
-                // evita erro se ainda não carregou
-                if (!grupo_1.length || !grupo_2.length) {
-                    console.log("Pokémons ainda carregando...");
-                    return;
-                }
+            // impede clique duplo
+            if (this.classList.contains("opened")) {
+                return;
+            }
 
-                // animação
+            const opened = document.querySelectorAll(".opened");
+
+            // evita erro se ainda não carregou
+            if (!grupo_1.length || !grupo_2.length) {
+                console.log("Pokémons ainda carregando...");
+                return;
+            }
+
+            // animação
+            this.classList.remove("rotate");
+
+            void this.offsetWidth;
+
+            this.classList.add("rotate");
+
+            // esconde a pokebola depois da animação
+            setTimeout(() => {
+                this.classList.add("opened");
+            }, 2500);
+
+            setTimeout(() => {
                 this.classList.remove("rotate");
+            }, 3000);
 
-                void this.offsetWidth;
+            // toca som
+            if (sound) {
+                sound.currentTime = 0;
+                sound.play();
+            }
 
-                this.classList.add("rotate");
+            // escolhe pokemon
+            let pokemon;
 
-                // esconde a pokebola depois da animação
-                setTimeout(() => {
-                    this.classList.add("opened");
-                }, 1500);
+            if (index < 3) {
+                pokemon = grupo_1[index];
+            } else {
+                pokemon = grupo_2[index - 3];
+            }
 
+            if (!pokemon) return;
 
-                // toca som
-                if (sound) {
-                    sound.currentTime = 0;
-                    sound.play();
-                }
+            const sprite =
+                pokemon.sprites?.versions?.["generation-v"]?.["black-white"]?.animated?.front_default
+                ||
+                pokemon.sprites?.other?.dream_world?.front_default
+                ||
+                pokemon.sprites?.other?.home?.front_default
+                ||
+                pokemon.sprites?.front_default;
 
-                // escolhe o pokemon correto
-                let pokemon;
+            const slot = this.querySelector(".pokemon-slot");
 
-                if (index < 3) {
-                    pokemon = grupo_1[index];
-                } else {
-                    pokemon = grupo_2[index - 3];
-                }
+            if (slot) {
 
-                if (!pokemon) return;
+            const tipos = pokemon.types
+                .map(t => t.type.name)
+                .join(" | ");
 
+            const habilidades = pokemon.abilities
+                .slice(0, 2)
+                .map(a => a.ability.name)
+                .join(" | ");
 
-                // fallback caso sprite animada não exista
-                const sprite =
-                    pokemon.sprites?.other?.dream_world?.front_default
-                    ||
-                    pokemon.sprites?.other?.home?.front_default
-                    ||
-                    pokemon.sprites?.versions?.["generation-v"]?.["black-white"]?.animated?.front_default
-                    ||
-                    pokemon.sprites?.front_default;
-                    
+            const fraquezas = pokemon.types
+                .map(t => t.type.name)
+                .join(" | ");
 
+            slot.innerHTML = `
+                <div class="pokemon-card">
+                    <p>${pokemon.name.split('-').filter(Boolean)[0]}</p>
+                    <img src="${sprite}" alt="${pokemon.name}">
+                    <div class="pokemon-info">
+                        <p>
+                            <strong>Tipo:</strong> ${tipos}
+                        </p>
 
-                // renderiza pokemon
-                const slot = this.querySelector(".pokemon-slot");
+                        <p>
+                            <strong>Poder:</strong> ${habilidades}
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
 
-                if (slot) {
-                    slot.innerHTML = `
-                        <div class="pokemon-card">
-                            <p>${pokemon.name}</p>
-                            <img src="${sprite}" alt="${pokemon.name}">
-                        </div>
-                    `;
-                }
-
-            });
+        });
 
         });
 
