@@ -11,45 +11,57 @@
     </head>
     <body>
         <div class="banner" id="home">
-            <img class="openImg" src="img/poke.jpg" alt="pokemon">
+            <img class="openImg" src="img/5c472d1d-e202-4a53-b2d3-2b2d292be711.png" alt="pokemon">
             <div class="content">
                 <h1>PokéMoN GaMe API</h1><br>
             </div>
             <div class="players">
                 <div class="player">
-                    <p>Player1</p>
                     <img src="img/player1.svg" alt="pokemon">
                 </div>
                 <div class="botao">
-                    <button onclick="location.reload()" type="submit" id="reiniciar">Reiniciar</button>
+                    <button onclick="location.reload()" type="submit"
+                        id="reiniciar">Reset</button>
                 </div>
                 <div class="player">
-                    <p>Player2</p>
                     <img src="img/player2.svg" alt="pokemon">
                 </div>
             </div>
             <div class="batle">
-                <div class="container-1">
-                    <div class="pokeball">
-                        <div class="pokemon-slot"></div>
-                    </div>
-                    <div class="pokeball">
-                        <div class="pokemon-slot"></div>
-                    </div>
-                    <div class="pokeball">
-                        <div class="pokemon-slot"></div>
-                    </div>
-                </div>
                 <div class="container-2">
-                    <div class="pokeball pokeball-2">
+
+                    <div class="ball-wrapper">
+                        <div class="pokeball"></div>
                         <div class="pokemon-slot"></div>
                     </div>
-                    <div class="pokeball pokeball-2">
+
+                    <div class="ball-wrapper">
+                        <div class="pokeball"></div>
                         <div class="pokemon-slot"></div>
                     </div>
-                    <div class="pokeball pokeball-2">
+
+                    <div class="ball-wrapper">
+                        <div class="pokeball"></div>
                         <div class="pokemon-slot"></div>
                     </div>
+
+                </div>
+                <div class="container-1">
+                    <div class="ball-wrapper">
+                        <div class="pokeball pokeball-2"></div>
+                        <div class="pokemon-slot"></div>
+                    </div>
+
+                    <div class="ball-wrapper">
+                        <div class="pokeball pokeball-2"></div>
+                        <div class="pokemon-slot"></div>
+                    </div>
+
+                    <div class="ball-wrapper">
+                        <div class="pokeball pokeball-2"></div>
+                        <div class="pokemon-slot"></div>
+                    </div>
+
                 </div>
             </div>
             <audio id="pokeSound">
@@ -58,131 +70,10 @@
         </div>
         <div id="time-1"></div>
         <div id="time-2"></div>
-            
-        <!--<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/back/41.gif" alt="GIF espelhado" style="transform: scaleX(-1); width: 200px; z-index: 10;">-->
-                </div>
         <audio autoplay loop controls id="meuAudio">
             <source src="Pokemon.mp3" type="audio/mpeg">
             Seu navegador não suporta o elemento de áudio.
         </audio>
-
-    <script>
-
-        // libera música após primeira interação do usuário
-        window.addEventListener('click', function () {
-            const audio = document.getElementById('meuAudio');
-
-            if (audio) {
-                audio.muted = false;
-                audio.play();
-            }
-
-        }, { once: true });
-
-
-        // pega pokebolas vermelhas + azuis
-        const pokeballs = document.querySelectorAll(".pokeball, .pokeball-2");
-
-        const sound = document.getElementById("pokeSound");
-
-        console.log(pokeballs)
-        pokeballs.forEach((ball, index) => {
-            
-            ball.addEventListener("click", function () {
-
-            // impede clique duplo
-            if (this.classList.contains("opened")) {
-                return;
-            }
-
-            const opened = document.querySelectorAll(".opened");
-
-            // evita erro se ainda não carregou
-            if (!grupo_1.length || !grupo_2.length) {
-                console.log("Pokémons ainda carregando...");
-                return;
-            }
-
-            // animação
-            this.classList.remove("rotate");
-
-            void this.offsetWidth;
-
-            this.classList.add("rotate");
-
-            // esconde a pokebola depois da animação
-            setTimeout(() => {
-                this.classList.add("opened");
-            }, 2500);
-
-            setTimeout(() => {
-                this.classList.remove("rotate");
-            }, 3000);
-
-            // toca som
-            if (sound) {
-                sound.currentTime = 0;
-                sound.play();
-            }
-
-            // escolhe pokemon
-            let pokemon;
-
-            if (index < 3) {
-                pokemon = grupo_1[index];
-            } else {
-                pokemon = grupo_2[index - 3];
-            }
-
-            if (!pokemon) return;
-
-            const sprite =
-                pokemon.sprites?.versions?.["generation-v"]?.["black-white"]?.animated?.front_default
-                ||
-                pokemon.sprites?.other?.dream_world?.front_default
-                ||
-                pokemon.sprites?.other?.home?.front_default
-                ||
-                pokemon.sprites?.front_default;
-
-            const slot = this.querySelector(".pokemon-slot");
-
-            if (slot) {
-
-            const tipos = pokemon.types
-                .map(t => t.type.name)
-                .join(" | ");
-
-            const habilidades = pokemon.abilities
-                .slice(0, 2)
-                .map(a => a.ability.name)
-                .join(" | ");
-
-            const fraquezas = pokemon.types
-                .map(t => t.type.name)
-                .join(" | ");
-
-            slot.innerHTML = `
-                <div class="pokemon-card">
-                    <p>${pokemon.name.split('-').filter(Boolean)[0]}</p>
-                    <img src="${sprite}" alt="${pokemon.name}">
-                    <div class="pokemon-info">
-                        <p>
-                            <strong>Tipo:</strong> ${tipos}
-                        </p>
-
-                        <p>
-                            <strong>Poder:</strong> ${habilidades}
-                        </p>
-                    </div>
-                </div>
-            `;
-        }
-
-        });
-
-        });
-
-    </script>
+        <script src="js/ballsAnimation.js"></script>
     </body>
 </html>
